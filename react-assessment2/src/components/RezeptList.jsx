@@ -65,7 +65,7 @@ export default function RecipeList({ recipes, onSelect, onDelete }) {
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                padding: '1rem',
+                                padding: '0.5rem',
                                 borderRadius: '15px',
                                 backgroundColor: '#2e2e2e',
                                 border: '1px solid #242424',
