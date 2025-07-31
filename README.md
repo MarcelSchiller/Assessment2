@@ -1,6 +1,6 @@
 # Assessment2
 
-Normale React Application:
+Normale React/Vite Application:
 - Ordner 'react-assassment2' als modul hinzufügen
 - Run npm install
 - Entwicklungsserver starten
