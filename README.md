@@ -1,10 +1,9 @@
 # Assessment2
 
-Normale React Application
-
-Ordner 'react-assassment2' als modul hinzufügen
-
-Run npm install
+Normale React Application:
+- Ordner 'react-assassment2' als modul hinzufügen
+- Run npm install
+- Entwicklungsserver starten
 
 Die Anwendung speichert Rezepte im Local Storage. Der button 'Delete Storage' löscht den storage und lädt wieder die Rezepte aus "TestRezepte.jsx"
 
