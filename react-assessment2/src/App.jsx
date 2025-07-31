@@ -1,35 +1,109 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {useEffect, useState} from 'react';
+import RezeptForm from './components/RezeptForm.jsx';
+import {initialRecipes} from './data/TestRezepte.jsx';
+import RezeptList from './components/RezeptList.jsx';
+import RezeptDetail from './components/RezeptDetail';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [recipes, setRecipes] = useState(() => {
+      const saved = localStorage.getItem('recipes');
+      return saved ? JSON.parse(saved) : initialRecipes;
+  });
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [view, setView] = useState('list'); // 'list', 'form', 'detail', 'edit'
+
+    useEffect(() => {
+        localStorage.setItem('recipes', JSON.stringify(recipes));
+    }, [recipes]);
+
+    const handleShowList = () => {
+        setSelectedRecipe(null);
+        setEditMode(false);
+        setView('list');
+    };
+
+    const handleShowForm = () => {
+        setSelectedRecipe(null);
+        setEditMode(false);
+        setView('form');
+    };
+
+    const handleSelectRecipe = (recipe) => {
+        setSelectedRecipe(recipe);
+        setView('detail');
+    };
+
+    const handleDeleteRecipe = (id) => {
+        setRecipes(recipes.filter((r) => r.id !== id));
+        setSelectedRecipe(null);
+        setView('list');
+    };
+
+    const handleSaveNewRecipe = (recipe) => {
+        setRecipes([...recipes, recipe]);
+        setView('list');
+    };
+
+    const handleSaveEditedRecipe = (updated) => {
+        setRecipes(recipes.map((r) => (r.id === updated.id ? updated : r)));
+        setSelectedRecipe(null);
+        setEditMode(false);
+        setView('list');
+    };
+
+    const handleCancelEdit = () => {
+     //   setSelectedRecipe(null);
+        setEditMode(false);
+     //   setView('list');
+    };
+
+    const handleStartEdit = () => {
+        setEditMode(true);
+    };
+
+    const handleDeleteStorage = () =>{
+        localStorage.removeItem('recipes');
+        setRecipes(initialRecipes);
+    }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="appContainer">
+          <h1>Persönliche Rezeptsammlung</h1>
+          <div style={{ marginBottom: '1rem' }}>
+              <button onClick={handleShowList}>📋 Rezepte</button>
+              <button onClick={handleShowForm} style={{ marginLeft: '1rem' }}>➕</button>
+              <button onClick={handleDeleteStorage} style={{ marginLeft: '1rem' }}> Delete Storage</button>
+          </div>
+
+          {view === 'list' && !selectedRecipe && (
+              <RezeptList recipes={recipes} onSelect={handleSelectRecipe} onDelete={handleDeleteRecipe} />
+          )}
+
+          {view === 'form' && (
+              <RezeptForm onSave={handleSaveNewRecipe} />
+          )}
+
+          {view === 'detail' && selectedRecipe && !editMode && (
+              <RezeptDetail
+                  recipe={selectedRecipe}
+                  onBack={handleShowList}
+                  onEdit={handleStartEdit}
+                  onDelete={handleDeleteRecipe}
+              />
+          )}
+
+          {editMode && selectedRecipe && (
+              <RezeptForm
+                  existingRecipe={selectedRecipe}
+                  onSave={handleSaveEditedRecipe}
+                  onCancel={handleCancelEdit}
+              />
+          )}
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;

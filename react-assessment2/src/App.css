@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+
+.appContainer{
+  text-align: center;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
