@@ -6,7 +6,7 @@ export default function RecipeForm({onSave, existingRecipe, onCancel}) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [ingredients, setIngredients] = useState([]);
+    const [ingredients, setIngredients] = useState([{ name: '', amount: '' }]);
     const [steps, setSteps] = useState(['']);
     const [rating, setRating] = useState(1);
 
