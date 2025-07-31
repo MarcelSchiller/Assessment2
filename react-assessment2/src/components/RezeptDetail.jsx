@@ -26,6 +26,7 @@ export default function RecipeDetail({ recipe, onBack, onEdit, onDelete }) {
             >
                 🗑️ Löschen
             </button>
+            <hr/>
             <h2>{recipe.title}</h2>
             <p><strong>Kategorie:</strong> {recipe.category}</p>
             <p><strong>Beschreibung:</strong> {recipe.description}</p>
