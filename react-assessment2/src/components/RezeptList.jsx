@@ -18,6 +18,18 @@ export default function RecipeList({ recipes, onSelect, onDelete }) {
         return matchesSearch && matchesCategory;
     });
 
+    function renderStars(rating) {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            stars.push(
+                <span key={i} style={{ color: i <= rating ? 'gold' : '#ccc', fontSize: '1.2rem' }}>
+                ★
+                </span>
+            );
+        }
+        return stars;
+    }
+
     return (
         <div>
             <input
@@ -51,15 +63,16 @@ export default function RecipeList({ recipes, onSelect, onDelete }) {
                             key={recipe.id}
                             onClick={() => onSelect(recipe)}
                             style={{
-                                cursor: 'pointer',
-                                padding: '0.5rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '1rem',
                                 borderRadius: '15px',
                                 backgroundColor: '#2e2e2e',
-                                transition: 'all 0.2s ease',
                                 border: '1px solid #242424',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center'}}
+                                marginBottom: '0.5rem',
+                                transition: 'all 0.2s ease',
+                                cursor: 'pointer'
+                            }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.border = '1px solid #ccc';
                                 e.currentTarget.style.backgroundColor = '#242424';
@@ -69,20 +82,40 @@ export default function RecipeList({ recipes, onSelect, onDelete }) {
                                 e.currentTarget.style.backgroundColor = '#2e2e2e';
                             }}
                         >
-                            <p><strong>{recipe.title}</strong> – {recipe.category}</p>
+                            <div style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                <strong>{recipe.title}</strong>
+                            </div>
 
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    if (confirm('Bist du sicher, dass du dieses Rezept löschen willst?')) {
-                                        onDelete(recipe.id);
-                                    }
-                                }}
-                                style={{marginLeft: '1rem' }}
-                            >
-                                🗑️
-                            </button>
+                            <div style={{ width: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {recipe.category}
+                            </div>
+
+                            <div style={{ width: '120px' }}>
+                                {renderStars(recipe.rating)}
+                            </div>
+
+                            <div style={{ marginLeft: 'auto' }}>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (confirm('Bist du sicher, dass du dieses Rezept löschen willst?')) {
+                                            onDelete(recipe.id);
+                                        }
+                                    }}
+                                    style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        color: 'red',
+                                        fontSize: '1.2rem',
+                                        cursor: 'pointer'
+                                    }}
+                                    title="Rezept löschen"
+                                >
+                                    🗑️
+                                </button>
+                            </div>
                         </li>
+
                     ))
                 ) : (
                     <li>Keine passenden Rezepte gefunden.</li>

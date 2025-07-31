@@ -195,7 +195,7 @@ export default function RecipeForm({onSave, existingRecipe, onCancel}) {
                 <StarRating value={rating} onChange={setRating}/>
             </div>
 
-            <div style={{display: 'flex', gap: '1rem', marginTop: '1rem'}}>
+            <div style={{display: 'flex', justifyContent:'center', gap: '1rem', marginTop: '1rem'}}>
                 <button type="submit">
                     {existingRecipe ? 'Änderungen speichern' : 'Rezept speichern'}
                 </button>

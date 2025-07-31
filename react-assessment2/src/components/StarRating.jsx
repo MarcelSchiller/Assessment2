@@ -2,7 +2,6 @@ export default function StarRating({ value, onChange }) {
     const handleClick = (index) => {
         onChange(index);
     };
-
     return (
         <div>
             {[1, 2, 3, 4, 5].map((i) => (
@@ -22,3 +21,4 @@ export default function StarRating({ value, onChange }) {
         </div>
     );
 }
+
