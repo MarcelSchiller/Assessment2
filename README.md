@@ -16,4 +16,4 @@ Features:
 - Filter nach Suchbegriff (Titel und Zutaten werden verglichen)
 - Bewertung mit Sternen
 - Speicherung im Local Storage
-- minimales Styling
+- grundlegendes Styling
