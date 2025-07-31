@@ -1,4 +1,4 @@
-# Assessment2
+# Assessment2 - Rezeptsammlung
 
 Normale React/Vite Application:
 - Ordner 'react-assassment2' als modul hinzufügen
